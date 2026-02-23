@@ -30,6 +30,12 @@ class Event {
         return $stmt->fetchColumn();
     }
 
+    public function getEventSeatsById($id) {
+        $stmt = $this->conn->prepare("SELECT seats FROM events WHERE id = :id LIMIT 1");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetchColumn();
+    }
+
     public function updateEventName($event_id, $new_event) {
         $old_event = $this->getEventNameById($event_id);
         $stmt = $this->conn->prepare("UPDATE events SET event = :event WHERE id = :id");
